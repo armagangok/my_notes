@@ -6,21 +6,16 @@ class ColorController extends GetxController {
     const Color(0xffFD99FF),
     const Color(0xffFF9E9E),
     const Color(0xff91F48F),
-    const Color.fromARGB(255, 255, 248, 185),
+    const Color.fromARGB(255, 110, 199, 255),
     const Color(0xffFFF599),
     const Color(0xff9EFFFF),
     const Color.fromARGB(255, 117, 255, 255),
-    const Color.fromARGB(255, 110, 199, 255),
-    const Color.fromARGB(255, 218, 160, 255),
     const Color.fromARGB(255, 255, 128, 128),
-    const Color.fromARGB(255, 182, 182, 182),
     const Color.fromARGB(255, 208, 208, 208),
+    const Color.fromARGB(255, 255, 255, 255),
   ]);
 
   void changeColor() {
-    colors.shuffle();
-    colors.shuffle();
-    colors.shuffle();
     colors.shuffle();
     notifyChildrens();
   }

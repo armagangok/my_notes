@@ -3,7 +3,9 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/route_manager.dart';
+import 'package:get/state_manager.dart';
 
 import './controller/color_controller.dart';
 import './controller/controller.dart';
@@ -22,36 +24,42 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = context.getHeight(1);
     final width = context.getWidth(1);
+
     HomeController controller = Get.put(HomeController());
     ColorController colorController = Get.put(ColorController());
 
-    return Scaffold(
-      appBar: buildAppBar(height, width, controller, colorController),
-      body: ListView.separated(
-        padding: EdgeInsets.symmetric(
-          horizontal: width * 0.05,
-          vertical: height * 0.02,
+    return GestureDetector(
+      onTap: () => context.dismissKeyboard(),
+      child: Scaffold(
+        appBar: buildAppBar(height, width, controller, colorController),
+        body: ListView.separated(
+          physics: const ClampingScrollPhysics(),
+          padding: EdgeInsets.symmetric(
+            horizontal: width * 0.05,
+            vertical: height * 0.02,
+          ),
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () => Get.to(
+                NoteDetailPage(note: notes[index]),
+              ),
+              child: buildItem(
+                width,
+                index,
+                colorController,
+                context.textTheme,
+              ),
+            );
+          },
+          separatorBuilder: (context, index) {
+            return SizedBox(height: height * 0.028);
+          },
+          itemCount: notes.length,
         ),
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () => Get.to(
-              NoteDetailPage(note: notes[index]),
-            ),
-            child: buildItem(
-              width,
-              index,
-              colorController,
-            ),
-          );
-        },
-        separatorBuilder: (context, index) {
-          return SizedBox(height: height * 0.028);
-        },
-        itemCount: notes.length,
-      ),
-      floatingActionButton: buildFloatingButton(
-        height,
-        width,
+        floatingActionButton: buildFloatingButton(
+          height,
+          width,
+        ),
       ),
     );
   }
@@ -63,7 +71,7 @@ class HomePage extends StatelessWidget {
     double width,
   ) {
     return FloatingActionButton(
-      onPressed: () => Get.to(TakeNotePage()),
+      onPressed: () => Get.to(const TakeNotePage()),
       backgroundColor: Colors.transparent,
       child: IconContanier(
         height: heigth * 0.07,
@@ -79,11 +87,8 @@ class HomePage extends StatelessWidget {
 
   //
 
-  Widget buildItem(
-    double width,
-    int index,
-    ColorController colorController,
-  ) {
+  Widget buildItem(double width, int index, ColorController colorController,
+      TextTheme textTheme) {
     return Obx(
       () => IconContanier(
         color: colorController.colors[Random().nextInt(9)],
@@ -96,6 +101,7 @@ class HomePage extends StatelessWidget {
           child: AutoSizeText(
             notes[index].title!,
             minFontSize: 18,
+            style: textTheme.headline6!.copyWith(color: Colors.black),
           ),
         ),
       ),
