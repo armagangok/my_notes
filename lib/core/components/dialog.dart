@@ -35,7 +35,7 @@ class MyDialog extends StatelessWidget {
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: AppColors.dialogRed),
-                  onPressed: () => Get.to(const HomePage()),
+                  onPressed: () => Get.to( HomePage()),
                   child: const Text("Discard"),
                 ),
                 ElevatedButton(

@@ -15,8 +15,11 @@ class ColorController extends GetxController {
     const Color.fromARGB(255, 255, 255, 255),
   ]);
 
+  RxBool pressed = RxBool(false);
+
   void changeColor() {
     colors.shuffle();
+    pressed.value = !pressed.value;
     notifyChildrens();
   }
 }

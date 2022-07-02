@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class IconContanier extends StatelessWidget {
-  IconContanier({
+  const IconContanier({
     Key? key,
     required this.widget,
     this.width,
@@ -10,14 +10,15 @@ class IconContanier extends StatelessWidget {
   }) : super(key: key);
 
   final Widget widget;
-  double? width;
-  double? height;
+  final double? width;
+  final double? height;
   final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
         width: width,
         height: height,
         decoration: BoxDecoration(

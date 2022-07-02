@@ -104,7 +104,7 @@ class TakeNotePage extends StatelessWidget {
                                 primary: AppColors.dialogRed,
                               ),
                               onPressed: () {
-                                Get.to(const HomePage());
+                                Get.to(HomePage());
                                 Get.delete<TakeNoteTextController>();
                               },
                               child: const AutoSizeText(
